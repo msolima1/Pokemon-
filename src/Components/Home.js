@@ -10,6 +10,7 @@ export default function Home() {
     const [result, setResult] = useState([])
     const [error, setError] = useState("")
     const [hasClicked, setHasClicked] = useState(false)
+    const hello = "hello"
 
     function clearAll() {
         setHasClicked(false)
