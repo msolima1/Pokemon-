@@ -17,7 +17,7 @@ function Results() {
 
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900">
             {result && result.name && result.height && result.weight ? (
                 <div className="w-80 rounded-lg overflow-hidden shadow-xl bg-white border-8 border-red-600">
                     <div className="bg-red-600 p-4 text-white text-center font-bold text-2xl">
