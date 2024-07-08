@@ -1,11 +1,20 @@
 // Results.js
-import React from 'react';
+import React, {useEffect} from 'react';
 import './styles.css'; // Assuming your CSS is in a file named styles.css
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Results() {
     const location = useLocation();
+    const navigate = useNavigate()
     const { searchWord, result } = location.state || {};
+
+    useEffect(()=> {
+        if(result){
+            console.log(result)
+        }
+        console.log(searchWord, result)
+    }, [result])
+
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
@@ -30,9 +39,27 @@ function Results() {
                             #{result.id.toString().padStart(3, '0')}
                         </span>
                     </div>
+                    <div className='flex items-center justify-center'>
+                    <button onClick={()=> navigate(-1)} className='flex  items-center justify-center text-black border border-black rounded-full px-4 my-4'>
+                        <div className='text-center'>
+                            Clear
+                        </div>
+    
+                    </button>
+                    </div>
                 </div>
             ) : (
+                <div>
                 <div className="text-center text-red-600">No Pokemon data available.</div>
+                
+                    <button className='text-black border border-black rounded-full px-4 my-4'>
+                        <div >
+                            Clear
+                        </div>
+    
+                    </button>
+                </div>
+    
             )}
         </div>
     );

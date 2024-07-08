@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
     const [searchWord, setSearchWord] = useState("");
-    const [result, setResult] = useState([])
+     
     const [error, setError] = useState("")
     const [hasClicked, setHasClicked] = useState(false)
     const hello = "hello"
@@ -16,47 +16,39 @@ export default function Home() {
 
     function clearAll() {
         setHasClicked(false)
-        setResult([])
+        
         setSearchWord("")
         setError("")
     }
 
-    async function callAPI() {
-        setError("")
-        setResult([])
-        setHasClicked(true)
+    const callAPI = async () => {
+        setError("");
+        setHasClicked(true);
+
         try {
-            const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${searchWord.toLowerCase()}`)
+            const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${searchWord.toLowerCase()}`);
 
-            if (response.status == 200) {
-                const data = await response.json()
-                setResult(data)
-                console.log(data)
-            } else if (response.status == 300) {
-                setError("this is a 300 error")
-
-            } else if (response.status == 100) {
-                setError("this is a 100 error")
-
+            if (response.status === 200) {
+                const result = await response.json();
+                navigate('/Results', { state: { searchWord, result } });
+            } else if (response.status === 300) {
+                setError("This is a 300 error");
+            } else if (response.status === 100) {
+                setError("This is a 100 error");
             } else if (response.status >= 400 && response.status < 600) {
-                setError("this is either a 400 or a 500 error")
-
+                setError("This is either a 400 or a 500 error");
+            } else {
+                setError("Pokemon not found");
             }
-
-            else {
-                setError(" Pokemon not found")
-            }
-
-            navigate('/Results', { state: { searchWord, result } });
-
         } catch (error) {
-            console.log(error)
-
+            console.log(error);
+            setError("An unexpected error occurred");
         }
+    };
 
-
-
-
+    function handleSearch(){
+        callAPI()
+        
     }
 
 
@@ -75,7 +67,7 @@ export default function Home() {
                         onChange={(e) => setSearchWord(e.target.value)}
                     />
 
-                    <button onClick={() => callAPI()}>
+                    <button onClick={() => handleSearch()}>
                         <FaSearch fontSize={60} color='white' />
                     </button>
 
@@ -94,16 +86,7 @@ export default function Home() {
 
 
 
-            {hasClicked === true &&
-                <button onClick={() => clearAll()}
-                    className='text-white border border-white rounded-full px-4 my-4'>
-                    <div >
-                        Clear
-                    </div>
-
-                </button>
-            }
-
+            
 
 
         </div >
