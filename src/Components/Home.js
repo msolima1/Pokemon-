@@ -6,10 +6,6 @@ import './styles.css'; // Assuming your CSS is in a file named styles.css
 import { useNavigate } from 'react-router-dom';
 
 
-
-
-
-
 export default function Home() {
     const [searchWord, setSearchWord] = useState("");
     const [result, setResult] = useState([])

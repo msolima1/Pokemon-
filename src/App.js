@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import Home from './Components/Home';
 import Results from './Components/Results';
+import { Route, useLocation, Routes } from 'react-router-dom';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
+  const location = useLocation()
 
   const navigateTo = (page) => {
     setCurrentPage(page);
@@ -11,14 +13,14 @@ export default function App() {
 
   return (
     <div>
-      <header>
-        <button onClick={() => navigateTo('home')}>Home</button>
-        <button onClick={() => navigateTo('results')}>Results</button>
-      </header>
-      <main>
-        {currentPage === 'home' && <Home />}
-        {currentPage === 'results' && <Results />}
-      </main>
+      <Routes location={location} key={location.pathname}>  
+          <Route path='/home' element={<Home navigateTo={Home} />} />
+          <Route path='/Results' element={<Results navigateTo={Results} />} />
+          <Route path='/' element={<Home navigateTo={Home} />} />
+
+     
+
+        </Routes>
     </div>
   );
 }
