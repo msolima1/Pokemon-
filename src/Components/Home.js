@@ -2,6 +2,11 @@
 import React from 'react'
 import { FaSearch } from "react-icons/fa";
 import { useState } from "react";
+import './styles.css'; // Assuming your CSS is in a file named styles.css
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 
 
@@ -11,6 +16,7 @@ export default function Home() {
     const [error, setError] = useState("")
     const [hasClicked, setHasClicked] = useState(false)
     const hello = "hello"
+    const navigate = useNavigate();
 
     function clearAll() {
         setHasClicked(false)
@@ -45,6 +51,7 @@ export default function Home() {
                 setError(" Pokemon not found")
             }
 
+            navigate('/Results', { state: { searchWord, result } });
 
         } catch (error) {
             console.log(error)
@@ -59,11 +66,10 @@ export default function Home() {
 
 
     return (
-        <div className='h-screen bg-slate-900 overflow-auto flex flex-col justify-center items-center'>
+        <div className="background-style">
 
             {hasClicked === false &&
                 <div id='inner-box' className='flex items-center justify-between bg-slate-500 border border-white rounded-full py-3 px-40'>
-
 
                     <input
                         className='bg-slate-500 focus:outline-none focus:ring-0 text-white placeholder:text-white placeholder:text-4xl w-full text-4xl'
@@ -89,14 +95,7 @@ export default function Home() {
             }
 
 
-            {result && result.name && result.height && result.weight &&
 
-                < div >
-                    <div className='text-white'> name: {result.name}</div>
-                    <div className='text-white'> height: {result.height}</div>
-                    <div className='text-white'> weight: {result.weight}</div>
-                </div>
-            }
 
 
             {hasClicked === true &&
@@ -109,28 +108,9 @@ export default function Home() {
                 </button>
             }
 
-            <div class="bg-red-700 max-w-sm overflow-hidden shadow-lg mt-4 rounded-2xl">
-                <div class="px-6 py-4">
-                    <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-                    <p class="text-gray-700 text-base">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-                    </p>
-                </div>
-                <div class="px-6 pt-4 pb-2">
-                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
-                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
-                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
-                </div>
-            </div>
-
-
-
 
 
         </div >
-
-
-
 
 
     )

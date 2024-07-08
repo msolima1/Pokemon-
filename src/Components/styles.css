@@ -1,0 +1,10 @@
+.background-style {
+    height: 100vh;
+    background-color: #0f172a;
+    /* Equivalent to Tailwind's bg-slate-900 */
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
